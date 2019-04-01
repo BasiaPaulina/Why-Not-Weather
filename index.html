@@ -22,22 +22,22 @@
   </head>
   <body>
     <div class="container">
-      <h1>Why Not Weather</h1>
-      <h3>
-        The site where you can check the weather, whenever you feel like going
-        wherever.
-      </h3>
-      <form class="search-current">
-        <input
-          type="search"
-          placeholder="Enter city or long/lat"
-          autocomplete="off"
-          value=""
-        /><input type="submit" class="button-current" value="Search" />
-      </form>
-      <form class="search-historic">
-        <input type="date" autocomplete="off" value="" />
-      </form>
+      <nav class="navbar navbar-light bg-light">
+        <span class="navbar-brand mb-0 h1"
+          >Why Not Weather:
+          <span class="tagline-heading"
+            >The site where you can check the weather, whenever you feel like
+            going wherever.</span
+          ></span
+        >
+      </nav>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Location and Date</span>
+        </div>
+        <input type="text" aria-label="location" class="form-control" />
+        <input type="date" aria-label="date" class="form-control" />
+      </div>
       <hr />
       <h1>Location</h1>
       <h2>Historic weather on date [or] Current Weather</h2>
@@ -52,8 +52,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-sm-1"></div>
-        <div class="col-sm-2">
+        <div class="col-sm-2 offset-sm-1">
           <i class="fas fa-cloud-sun"></i><br />Temp, date
         </div>
         <div class="col-sm-2">
@@ -68,7 +67,6 @@
         <div class="col-sm-2">
           <i class="fas fa-cloud-sun"></i><br />Temp, date
         </div>
-        <div class="col-sm-1"></div>
       </div>
     </div>
   </body>
