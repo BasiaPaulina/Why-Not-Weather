@@ -18,7 +18,10 @@ h1 {
   z-index: -1;
 }
 .main-background {
+  display: block;
+  margin: 0 auto;
   background-image: linear-gradient(to top, #dcebff 0%, #accbee 100%);
+  width: 100%;
 }
 .date {
   display: block;
