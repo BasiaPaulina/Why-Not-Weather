@@ -1,0 +1,35 @@
+body {
+  font-family: "Maven Pro", sans-serif;
+  padding: 100px;
+}
+h1 {
+  display: inline;
+  position: relative;
+  bottom: 40px;
+  right: 18px;
+}
+.topbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+}
+.main-background {
+  background-image: linear-gradient(to top, #fff1eb 0%, #ace0f9 100%);
+}
+.date {
+  display: block;
+  position: relative;
+  bottom: 24px;
+  right: 15px;
+}
+
+.main-weather {
+  display: inline;
+  position: relative;
+  bottom: 41px;
+  right: 10px;
+}
+.card-background {
+  background-image: linear-gradient(to top, #accbee 0%, #e7f0fd 100%);
+}
