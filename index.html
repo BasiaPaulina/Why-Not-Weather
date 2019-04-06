@@ -39,18 +39,21 @@
       </nav>
       <div class="jumbotron main-background">
         <p class="lead date">Date</p>
-        <h1 class="display-4">Location</h1>
+        <h1 class="display-4">Locatio<span>n</span></h1>
         <p class="lead main-weather">
           <span class="temperature-main">Temp</span> |
           <span class="percipitation-main">Perc</span>
         </p>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text">Location and Date</span>
+        <form>
+          <div class="form-row">
+            <div class="col">
+              <input type="text" class="form-control" placeholder="City" />
+            </div>
+            <div class="col">
+              <input type="date" class="form-control" />
+            </div>
           </div>
-          <input type="text" aria-label="location" class="form-control" />
-          <input type="date" aria-label="date" class="form-control" />
-        </div>
+        </form>
         <hr class="my-4" />
         <div class="row">
           <div class="col-lg-2 offset-lg-1">
