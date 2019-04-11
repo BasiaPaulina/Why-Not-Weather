@@ -15,7 +15,11 @@ axios.get(`${url}/${path}?${appParams}`).then(function(response) {
   let location = document.querySelector(".location-h1");
   location.innerHTML = city;
   let mainWeather = document.querySelector(".main-weather");
-  mainWeather.innerHTML = `${currentTemperature} C ${currentWindSpeed} ${description} ${currentPericipation}`;
+  if (currentPericipation === true) {
+    mainWeather.innerHTML = `${currentTemperature} C ${currentWindSpeed} ${description} ${currentPericipation}`;
+  } else {
+    mainWeather.innerHTML = `${currentTemperature} C ${currentWindSpeed} ${description} No Rain`;
+  }
 });
 
 let now = new Date();
