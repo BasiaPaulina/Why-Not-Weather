@@ -14,7 +14,7 @@ function capitaliseFirst(string) {
 
 axios.get(`${url}/${path}?${appParams}`).then(function(response) {
   let currentTemperature = Math.round(response.data.main.temp);
-  let currentWindSpeed = `${response.data.wind.speed} m/s`;
+  let currentWindSpeed = `${response.data.wind.speed}`;
   let description = response.data.weather[0].description;
   let currentPericipation = response.data.rain;
   let location = document.querySelector(".location-h1");
@@ -26,7 +26,7 @@ axios.get(`${url}/${path}?${appParams}`).then(function(response) {
   mainTemperature.innerHTML = `Temp: ${currentTemperature} C`;
   mainWindSpeed.innerHTML = `Wind Speed: ${currentWindSpeed} m/s`;
   mainDescription.innerHTML = `${capitaliseFirst(description)}`;
-  if (currentPercipitation === true) {
+  if (currentPericipation === true) {
     mainPercipitation.innerHTML = `${currentPericipation}`;
   } else {
     mainPercipitation.innerHTML = `Percipitation: No Data Available`;
