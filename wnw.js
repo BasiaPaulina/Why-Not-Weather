@@ -46,10 +46,16 @@ function formatTime(time) {
   let hour = time.getHours();
   let minute = time.getMinutes();
   let fullTime = `${hour}:${minute}`;
-  if (hour >= 10) {
-    return fullTime;
+  if (hour < 10 && minute < 10) {
+    return `0${hour}:0${minute}`;
+  }
+  if (hour < 10 && minute >= 10) {
+    return `0${hour}:${minute}`;
+  }
+  if (hour >= 10 && minute < 10) {
+    return `${hour}:0${minute}`;
   } else {
-    return `0${fullTime}`;
+    return `${hour}:${minute}`;
   }
 }
 let date = document.querySelector(".date");
