@@ -3,7 +3,7 @@ body {
   padding: 100px;
   background-color: linear-gradient(to bottom, #eef1f5 0%, #d0d3da 100%);
   color: #333333;
-  background-image: url("C:\Users\barba\Documents\GitHub\Why-Not-Weather\images\rain.jpg");
+  background-image: url("images\rain.jpg");
 }
 h1 {
   display: inline;
