@@ -7,6 +7,11 @@ let units = "metric";
 let appParams = `q=${city}&appid=${apiKey}&units=${units}`;
 
 console.log(`${url}/${path}?${appParams}`);
+
+function capitaliseFirst(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 axios.get(`${url}/${path}?${appParams}`).then(function(response) {
   let currentTemperature = Math.round(response.data.main.temp);
   let currentWindSpeed = `${response.data.wind.speed} m/s`;
@@ -14,11 +19,17 @@ axios.get(`${url}/${path}?${appParams}`).then(function(response) {
   let currentPericipation = response.data.rain;
   let location = document.querySelector(".location-h1");
   location.innerHTML = city;
-  let mainWeather = document.querySelector(".main-weather");
-  if (currentPericipation === true) {
-    mainWeather.innerHTML = `${currentTemperature} C ${currentWindSpeed} ${description} ${currentPericipation}`;
+  let mainTemperature = document.querySelector(".temperature-main");
+  let mainWindSpeed = document.querySelector(".wind-speed-main");
+  let mainDescription = document.querySelector(".description-main");
+  let mainPercipitation = document.querySelector(".percipitation-main");
+  mainTemperature.innerHTML = `Temp: ${currentTemperature} C`;
+  mainWindSpeed.innerHTML = `Wind Speed: ${currentWindSpeed} m/s`;
+  mainDescription.innerHTML = `${capitaliseFirst(description)}`;
+  if (currentPercipitation === true) {
+    mainPercipitation.innerHTML = `${currentPericipation}`;
   } else {
-    mainWeather.innerHTML = `${currentTemperature} C ${currentWindSpeed} ${description} No Rain`;
+    mainPercipitation.innerHTML = `Percipitation: No Data Available`;
   }
 });
 
