@@ -31,10 +31,17 @@ h1 {
 }
 
 .main-weather {
-  display: inline;
+  display: block;
   position: relative;
   bottom: 40px;
   right: -4px;
+}
+
+.detailed-weather {
+  display: block;
+  position: relative;
+  bottom: 37px;
+  right: -18px;
 }
 .card-background {
   background-image: linear-gradient(to top, #accbee 0%, #dcebff 100%);
