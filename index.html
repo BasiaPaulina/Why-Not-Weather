@@ -14,11 +14,7 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="C:\Users\barba\Documents\GitHub\Why-Not-Weather\wnw.css"
-    />
+    <link rel="stylesheet" type="text/css" href="wnw.css" />
     <link
       href="https://fonts.googleapis.com/css?family=Maven+Pro"
       rel="stylesheet"
@@ -52,9 +48,15 @@
         <form>
           <div class="form-row">
             <div class="col">
-              <input type="text" class="form-control" placeholder="City" />
+              <input
+                type="text"
+                class="form-control"
+                placeholder="City"
+                id="city-input"
+              />
+              <input type="submit" id="city-submit" />
             </div>
-            <div class="col">
+            <div class="col" id="date-input">
               <input type="date" class="form-control" />
             </div>
           </div>
@@ -112,6 +114,6 @@
         </div>
       </div>
     </div>
-    <script src="C:\Users\barba\Documents\GitHub\Why-Not-Weather/wnw.js"></script>
+    <script src="wnw.js"></script>
   </body>
 </html>
