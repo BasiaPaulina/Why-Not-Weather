@@ -8,15 +8,11 @@ let appParams = `q=${city}&appid=${apiKey}&units=${units}`;
 
 console.log(`${url}/${path}?${appParams}`);
 
-function capitaliseFirst(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
 axios.get(`${url}/${path}?${appParams}`).then(function(response) {
   let currentTemperature = Math.round(response.data.main.temp);
   let currentWindSpeed = `${response.data.wind.speed}`;
   let description = response.data.weather[0].description;
-  let currentPericipation = response.data.rain;
+  let currentHumidity = response.data.main.humidity;
   let location = document.querySelector(".location-h1");
   location.innerHTML = city;
   let mainTemperature = document.querySelector(".temperature-main");
@@ -25,12 +21,8 @@ axios.get(`${url}/${path}?${appParams}`).then(function(response) {
   let mainPercipitation = document.querySelector(".percipitation-main");
   mainTemperature.innerHTML = `Temp: ${currentTemperature} C`;
   mainWindSpeed.innerHTML = `Wind Speed: ${currentWindSpeed} m/s`;
-  mainDescription.innerHTML = `${capitaliseFirst(description)}`;
-  if (currentPericipation === true) {
-    mainPercipitation.innerHTML = `${currentPericipation}`;
-  } else {
-    mainPercipitation.innerHTML = `Percipitation: No Data Available`;
-  }
+  mainDescription.innerHTML = `${description}`;
+  mainPercipitation.innerHTML = `Humidity ${currentHumidity}%`;
 });
 
 let now = new Date();
