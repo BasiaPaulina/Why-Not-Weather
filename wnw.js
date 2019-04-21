@@ -78,11 +78,17 @@ function handlePosition(position) {
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
   let coordinates = `lat=${lat}&lon=${lon}`;
-  let apiURL = `${createURL(
-    pathWeather
-  )}?${coordinates}&appid=${apiKey}&units=${units}`;
-  console.log(apiURL);
-  axios.get(apiURL).then(handleApiResponse);
+
+  axios
+    .get(
+      `${createURL(pathWeather)}?${coordinates}&appid=${apiKey}&units=${units}`
+    )
+    .then(handleApiResponse);
+  axios
+    .get(
+      `${createURL(pathForecast)}?${coordinates}&appid=${apiKey}&units=${units}`
+    )
+    .then(getForecast);
 }
 
 navigator.geolocation.getCurrentPosition(handlePosition);
