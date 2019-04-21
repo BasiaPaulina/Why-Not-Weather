@@ -44,10 +44,15 @@ h1 {
   bottom: 37px;
   right: -18px;
 }
+
+.description-main {
+  text-transform: capitalize;
+}
+
 .card-background {
   background-image: linear-gradient(to top, #accbee 0%, #dcebff 100%);
 }
-.input-group: {
+.input-group {
   width: 80%;
   position: relative;
 }
