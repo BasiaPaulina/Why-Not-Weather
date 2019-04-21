@@ -25,7 +25,7 @@ function formatDate(date) {
   let minute = date.getMinutes();
   let fullTime = `${hour}:${minute}`;
   if (hour < 10 && minute < 10) {
-    return `${dayOfMonth} ${weekDay} ${year}, 0${hour}:0${minute}`;
+    return `${dayOfMonth} ${weekDay} ${year}, ${hour}:0${minute}`;
   }
   if (hour < 10 && minute >= 10) {
     return `${dayOfMonth} ${weekDay} ${year}, 0${hour}:${minute}`;
@@ -56,7 +56,7 @@ function getForecast(response) {
     .querySelectorAll("#forecast-block")
     .forEach(function(element, index) {
       element.querySelector("#day-forecast").innerHTML = formatDate(
-        new Date(response.data.list[index].dt * 1000)
+        new Date(response.data.list[index * 6].dt * 1000)
       );
       element.querySelector("#temp-forecast").innerHTML = Math.round(
         response.data.list[index].main.temp
