@@ -1,4 +1,3 @@
-//elements
 let mainTemperature = document.querySelector("#temperature-main");
 let mainWindSpeed = document.querySelector("#wind-speed-main");
 let mainDescription = document.querySelector("#description-main");
@@ -11,7 +10,6 @@ let url = "https://api.openweathermap.org/data/2.5/";
 let path = "weather";
 let units = "metric";
 
-//date function
 function formatDate(date) {
   let weekDays = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
   let year = date.getFullYear();
@@ -33,37 +31,35 @@ function formatDate(date) {
   }
 }
 
-function defaultSearch(cityDefault) {
-  axios
-    .get(`${url}/${path}?q=${cityDefault}&appid=${apiKey}&units=${units}`)
-    .then(function(response) {
-      mainTemperature.innerHTML = Math.round(response.data.main.temp);
-      mainWindSpeed.innerHTML = `${response.data.wind.speed} km/h`;
-      mainDescription.innerHTML = response.data.weather[0].description;
-      mainHumidity.innerHTML = `${response.data.main.humidity}%`;
-      timeStamp.innerHTML = formatDate(new Date(response.data.dt * 1000));
-      mainCity.innerHTML = cityDefault;
-    });
+function handleApiResponse(response) {
+  mainTemperature.innerHTML = Math.round(response.data.main.temp);
+  mainWindSpeed.innerHTML = `${response.data.wind.speed} km/h`;
+  mainDescription.innerHTML = response.data.weather[0].description;
+  mainHumidity.innerHTML = `${response.data.main.humidity}%`;
+  timeStamp.innerHTML = formatDate(new Date(response.data.dt * 1000));
+  mainCity.innerHTML = response.data.name;
 }
+function handlePosition(position) {
+  let lat = position.coords.latitude;
+  let lon = position.coords.longitude;
+  let coordinates = `lat=${lat}&lon=${lon}`;
+  let apiURL = `${url}/${path}?${coordinates}&appid=${apiKey}&units=${units}`;
+  console.log(apiURL);
+  axios.get(apiURL).then(handleApiResponse);
+}
+
+navigator.geolocation.getCurrentPosition(handlePosition);
+
 function handleSearch(event) {
   event.preventDefault();
   let city = document.querySelector("#city-input").value;
   if (city.length > 0) {
     axios
       .get(`${url}/${path}?q=${city}&appid=${apiKey}&units=${units}`)
-      .then(function(response) {
-        mainTemperature.innerHTML = Math.round(response.data.main.temp);
-        mainWindSpeed.innerHTML = `${response.data.wind.speed} km/h`;
-        mainDescription.innerHTML = response.data.weather[0].description;
-        mainHumidity.innerHTML = `${response.data.main.humidity}%`;
-        timeStamp.innerHTML = formatDate(new Date(response.data.dt * 1000));
-        mainCity.innerHTML = city;
-      });
+      .then(handleApiResponse);
   } else {
-    alert("Please enter a city.");
+    handlePosition;
   }
 }
 
 search.addEventListener("submit", handleSearch);
-
-defaultSearch("Lisbon");
