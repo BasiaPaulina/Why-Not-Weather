@@ -15,26 +15,6 @@ let weatherIconRoot = "http://openweathermap.org/img/w";
 function createURL(path) {
   return `${url}/${path}`;
 }
-let dayOne = document.querySelector("#first-day");
-let firstTemp = document.querySelector("#first-temp");
-let firstMain = document.querySelector("#first-main");
-let firstImage = document.querySelector("#first-image");
-let dayTwo = document.querySelector("#second-day");
-let secondTemp = document.querySelector("#second-temp");
-let secondMain = document.querySelector("#second-main");
-let secondImage = document.querySelector("#second-image");
-let dayThree = document.querySelector("#third-day");
-let thirdTemp = document.querySelector("#third-temp");
-let thirdMain = document.querySelector("#third-main");
-let thirdImage = document.querySelector("#third-image");
-let dayFour = document.querySelector("#fourth-day");
-let fourthTemp = document.querySelector("#fourth-temp");
-let fourthMain = document.querySelector("#fourth-main");
-let fourthImage = document.querySelector("#fourth-image");
-let dayFive = document.querySelector("#fifth-day");
-let fifthTemp = document.querySelector("#fifth-temp");
-let fifthMain = document.querySelector("#fifth-main");
-let fifthImage = document.querySelector("#fifth-image");
 
 function formatDate(date) {
   let weekDays = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
@@ -71,6 +51,29 @@ function handleApiResponse(response) {
   weatherIconMain.setAttribute("alt", response.data.weather[0].description);
 }
 
+function getForecast(response) {
+  document
+    .querySelectorAll("#forecast-block")
+    .forEach(function(element, index) {
+      element.querySelector("#day-forecast").innerHTML = formatDate(
+        new Date(response.data.list[index].dt * 1000)
+      );
+      element.querySelector("#temp-forecast").innerHTML = Math.round(
+        response.data.list[index].main.temp
+      );
+      element.querySelector("#main-forecast").innerHTML =
+        response.data.list[index + 1].weather[0].main;
+      element
+        .querySelector("#image-forecast")
+        .setAttribute(
+          "src",
+          `${weatherIconRoot}/${
+            response.data.list[index + 1].weather[0].icon
+          }.png`
+        );
+    });
+}
+
 function handlePosition(position) {
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
@@ -91,31 +94,14 @@ function handleSearch(event) {
     axios
       .get(`${createURL(pathWeather)}?q=${city}&appid=${apiKey}&units=${units}`)
       .then(handleApiResponse);
+    axios
+      .get(
+        `${createURL(pathForecast)}?q=${city}&appid=${apiKey}&units=${units}`
+      )
+      .then(getForecast);
   } else {
     handlePosition;
   }
 }
 
-function getForecast(day, temp, main, image, weekDay) {
-  let urlForecast = `${createURL(
-    pathForecast
-  )}?q=London&appid=${apiKey}&units=${units}`;
-  axios.get(urlForecast).then(function(response) {
-    day.innerHTML = formatDate(new Date(response.data.list[weekDay].dt * 1000));
-    temp.innerHTML = Math.round(response.data.list[weekDay].main.temp);
-    main.innerHTML = response.data.list[weekDay + 1].weather[0].main;
-    image.setAttribute(
-      "src",
-      `${weatherIconRoot}/${
-        response.data.list[weekDay + 1].weather[0].icon
-      }.png`
-    );
-  });
-}
-
 search.addEventListener("submit", handleSearch);
-getForecast(dayOne, firstTemp, firstMain, firstImage, 0);
-getForecast(dayTwo, secondTemp, secondMain, secondImage, 6);
-getForecast(dayThree, thirdTemp, thirdMain, thirdImage, 12);
-getForecast(dayFour, fourthTemp, fourthMain, fourthImage, 18);
-getForecast(dayFive, fifthTemp, fifthMain, fifthImage, 24);
