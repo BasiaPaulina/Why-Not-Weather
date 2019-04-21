@@ -12,14 +12,29 @@ let pathForecast = "forecast";
 let units = "metric";
 let weatherIconMain = document.querySelector("#weather-icon-main");
 let weatherIconRoot = "http://openweathermap.org/img/w";
-let firstImage = document.querySelector("#first-image");
-
 function createURL(path) {
   return `${url}/${path}`;
 }
 let dayOne = document.querySelector("#first-day");
 let firstTemp = document.querySelector("#first-temp");
 let firstMain = document.querySelector("#first-main");
+let firstImage = document.querySelector("#first-image");
+let dayTwo = document.querySelector("#second-day");
+let secondTemp = document.querySelector("#second-temp");
+let secondMain = document.querySelector("#second-main");
+let secondImage = document.querySelector("#second-image");
+let dayThree = document.querySelector("#third-day");
+let thirdTemp = document.querySelector("#third-temp");
+let thirdMain = document.querySelector("#third-main");
+let thirdImage = document.querySelector("#third-image");
+let dayFour = document.querySelector("#fourth-day");
+let fourthTemp = document.querySelector("#fourth-temp");
+let fourthMain = document.querySelector("#fourth-main");
+let fourthImage = document.querySelector("#fourth-image");
+let dayFive = document.querySelector("#fifth-day");
+let fifthTemp = document.querySelector("#fifth-temp");
+let fifthMain = document.querySelector("#fifth-main");
+let fifthImage = document.querySelector("#fifth-image");
 
 function formatDate(date) {
   let weekDays = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
@@ -81,20 +96,26 @@ function handleSearch(event) {
   }
 }
 
-function getForecast(day, temp, main, image) {
+function getForecast(day, temp, main, image, weekDay) {
   let urlForecast = `${createURL(
     pathForecast
   )}?q=London&appid=${apiKey}&units=${units}`;
   axios.get(urlForecast).then(function(response) {
-    day.innerHTML = formatDate(new Date(response.data.list[0].dt * 1000));
-    temp.innerHTML = Math.round(response.data.list[0].main.temp);
-    main.innerHTML = response.data.list[1].weather[0].main;
+    day.innerHTML = formatDate(new Date(response.data.list[weekDay].dt * 1000));
+    temp.innerHTML = Math.round(response.data.list[weekDay].main.temp);
+    main.innerHTML = response.data.list[weekDay + 1].weather[0].main;
     image.setAttribute(
       "src",
-      `${weatherIconRoot}/${response.data.list[1].weather[0].icon}.png`
+      `${weatherIconRoot}/${
+        response.data.list[weekDay + 1].weather[0].icon
+      }.png`
     );
   });
 }
 
 search.addEventListener("submit", handleSearch);
-getForecast(dayOne, firstTemp, firstMain, firstImage);
+getForecast(dayOne, firstTemp, firstMain, firstImage, 0);
+getForecast(dayTwo, secondTemp, secondMain, secondImage, 6);
+getForecast(dayThree, thirdTemp, thirdMain, thirdImage, 12);
+getForecast(dayFour, fourthTemp, fourthMain, fourthImage, 18);
+getForecast(dayFive, fifthTemp, fifthMain, fifthImage, 24);
