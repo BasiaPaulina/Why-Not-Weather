@@ -38,6 +38,7 @@
         <h1 class="display-4 location-h1" id="location-h1">Location</h1>
         <p class="date" id="weather-date">Date</p>
         <div class="lead main-weather">
+          <img id="weather-icon-main" />
           <span class="temperature-main" id="temperature-main">Temp</span>°C |
           <span class="wind-speed-main" id="wind-speed-main">Wind Speed</span>
         </div>
@@ -60,7 +61,19 @@
           <div class="col-lg-2 offset-lg-1">
             <div class="card card-background">
               <div class="card-body">
-                <h5 class="card-title">Day</h5>
+                <h5 class="card-title" id="first-day">Day</h5>
+                <img id="first-image" />
+                <p class="card-text">
+                  <span id="first-temp">Temperature</span>°C |
+                  <span id="first-main">Main</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2">
+            <div class="card card-background">
+              <div class="card-body">
+                <h5 class="card-title" id="#second-day">Day</h5>
                 <i class="fas fa-cloud-rain"></i>
                 <p class="card-text">Temperature | Percipitation</p>
               </div>
@@ -69,7 +82,7 @@
           <div class="col-lg-2">
             <div class="card card-background">
               <div class="card-body">
-                <h5 class="card-title">Day</h5>
+                <h5 class="card-title" id="#third-day">Day</h5>
                 <i class="fas fa-cloud-rain"></i>
                 <p class="card-text">Temperature | Percipitation</p>
               </div>
@@ -78,7 +91,7 @@
           <div class="col-lg-2">
             <div class="card card-background">
               <div class="card-body">
-                <h5 class="card-title">Day</h5>
+                <h5 class="card-title" id="#fourth-day">Day</h5>
                 <i class="fas fa-cloud-rain"></i>
                 <p class="card-text">Temperature | Percipitation</p>
               </div>
@@ -87,16 +100,7 @@
           <div class="col-lg-2">
             <div class="card card-background">
               <div class="card-body">
-                <h5 class="card-title">Day</h5>
-                <i class="fas fa-cloud-rain"></i>
-                <p class="card-text">Temperature | Percipitation</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-2">
-            <div class="card card-background">
-              <div class="card-body">
-                <h5 class="card-title">Day</h5>
+                <h5 class="card-title" id="#fifth-day">Day</h5>
                 <i class="fas fa-cloud-rain"></i>
                 <p class="card-text">Temperature | Percipitation</p>
               </div>

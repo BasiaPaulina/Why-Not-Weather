@@ -7,8 +7,19 @@ let mainCity = document.querySelector("#location-h1");
 let search = document.querySelector("#city-form");
 let apiKey = "ace2c200d6c61096c76082a9e2846e29";
 let url = "https://api.openweathermap.org/data/2.5/";
-let path = "weather";
+let pathWeather = "weather";
+let pathForecast = "forecast";
 let units = "metric";
+let weatherIconMain = document.querySelector("#weather-icon-main");
+let weatherIconRoot = "http://openweathermap.org/img/w";
+let firstImage = document.querySelector("#first-image");
+
+function createURL(path) {
+  return `${url}/${path}`;
+}
+let dayOne = document.querySelector("#first-day");
+let firstTemp = document.querySelector("#first-temp");
+let firstMain = document.querySelector("#first-main");
 
 function formatDate(date) {
   let weekDays = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
@@ -38,12 +49,20 @@ function handleApiResponse(response) {
   mainHumidity.innerHTML = `${response.data.main.humidity}%`;
   timeStamp.innerHTML = formatDate(new Date(response.data.dt * 1000));
   mainCity.innerHTML = response.data.name;
+  weatherIconMain.setAttribute(
+    "src",
+    `${weatherIconRoot}/${response.data.weather[0].icon}.png`
+  );
+  weatherIconMain.setAttribute("alt", response.data.weather[0].description);
 }
+
 function handlePosition(position) {
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
   let coordinates = `lat=${lat}&lon=${lon}`;
-  let apiURL = `${url}/${path}?${coordinates}&appid=${apiKey}&units=${units}`;
+  let apiURL = `${createURL(
+    pathWeather
+  )}?${coordinates}&appid=${apiKey}&units=${units}`;
   console.log(apiURL);
   axios.get(apiURL).then(handleApiResponse);
 }
@@ -55,11 +74,27 @@ function handleSearch(event) {
   let city = document.querySelector("#city-input").value;
   if (city.length > 0) {
     axios
-      .get(`${url}/${path}?q=${city}&appid=${apiKey}&units=${units}`)
+      .get(`${createURL(pathWeather)}?q=${city}&appid=${apiKey}&units=${units}`)
       .then(handleApiResponse);
   } else {
     handlePosition;
   }
 }
 
+function getForecast(day, temp, main, image) {
+  let urlForecast = `${createURL(
+    pathForecast
+  )}?q=London&appid=${apiKey}&units=${units}`;
+  axios.get(urlForecast).then(function(response) {
+    day.innerHTML = formatDate(new Date(response.data.list[0].dt * 1000));
+    temp.innerHTML = Math.round(response.data.list[0].main.temp);
+    main.innerHTML = response.data.list[1].weather[0].main;
+    image.setAttribute(
+      "src",
+      `${weatherIconRoot}/${response.data.list[1].weather[0].icon}.png`
+    );
+  });
+}
+
 search.addEventListener("submit", handleSearch);
+getForecast(dayOne, firstTemp, firstMain, firstImage);
