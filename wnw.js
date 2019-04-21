@@ -6,6 +6,10 @@ let mainHumidity = document.querySelector("#humidity-main");
 let timeStamp = document.querySelector("#weather-date");
 let mainCity = document.querySelector("#location-h1");
 let search = document.querySelector("#city-form");
+let apiKey = "ace2c200d6c61096c76082a9e2846e29";
+let url = "https://api.openweathermap.org/data/2.5/";
+let path = "weather";
+let units = "metric";
 
 //date function
 function formatDate(date) {
@@ -29,23 +33,37 @@ function formatDate(date) {
   }
 }
 
+function defaultSearch(cityDefault) {
+  axios
+    .get(`${url}/${path}?q=${cityDefault}&appid=${apiKey}&units=${units}`)
+    .then(function(response) {
+      mainTemperature.innerHTML = Math.round(response.data.main.temp);
+      mainWindSpeed.innerHTML = `${response.data.wind.speed} km/h`;
+      mainDescription.innerHTML = response.data.weather[0].description;
+      mainHumidity.innerHTML = `${response.data.main.humidity}%`;
+      timeStamp.innerHTML = formatDate(new Date(response.data.dt * 1000));
+      mainCity.innerHTML = cityDefault;
+    });
+}
 function handleSearch(event) {
   event.preventDefault();
   let city = document.querySelector("#city-input").value;
-  let apiKey = "ace2c200d6c61096c76082a9e2846e29";
-  let url = "https://api.openweathermap.org/data/2.5/";
-  let path = "weather";
-  let units = "metric";
-  let appParams = `q=${city}&appid=${apiKey}&units=${units}`;
-  console.log(`${url}/${path}?${appParams}`);
-  axios.get(`${url}/${path}?${appParams}`).then(function(response) {
-    mainTemperature.innerHTML = Math.round(response.data.main.temp);
-    mainWindSpeed.innerHTML = `${response.data.wind.speed} km/h`;
-    mainDescription.innerHTML = response.data.weather[0].description;
-    mainHumidity.innerHTML = `${response.data.main.humidity}%`;
-    timeStamp.innerHTML = formatDate(new Date(response.data.dt * 1000));
-    mainCity.innerHTML = city;
-  });
+  if (city.length > 0) {
+    axios
+      .get(`${url}/${path}?q=${city}&appid=${apiKey}&units=${units}`)
+      .then(function(response) {
+        mainTemperature.innerHTML = Math.round(response.data.main.temp);
+        mainWindSpeed.innerHTML = `${response.data.wind.speed} km/h`;
+        mainDescription.innerHTML = response.data.weather[0].description;
+        mainHumidity.innerHTML = `${response.data.main.humidity}%`;
+        timeStamp.innerHTML = formatDate(new Date(response.data.dt * 1000));
+        mainCity.innerHTML = city;
+      });
+  } else {
+    alert("Please enter a city.");
+  }
 }
 
 search.addEventListener("submit", handleSearch);
+
+defaultSearch("Lisbon");
